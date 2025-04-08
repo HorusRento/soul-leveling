@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Soul Leveling 'The System' v1.1.1</title>
+    <!-- Soul Leveling 'The System' v1.1.1 -->
+
+    <!-- PWA Manifest & Meta -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#00ccff"> <!-- Default theme color -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="TheSystem">
+    <link rel="icon" href="images/icons/icon-192x192.png" type="image/png" sizes="192x192">
+    <link rel="apple-touch-icon" href="images/icons/icon-192x192.png">
+    <!-- Add other icon sizes links here if created (e.g., 512x512) -->
+    <!-- <link rel="icon" href="images/icons/icon-512x512.png" type="image/png" sizes="512x512"> -->
+
+
+    <!-- External Libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- Core Stylesheets -->
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/animations.css">
+    <link rel="stylesheet" href="css/themes.css">
+
+    <!-- Minimal Inline Styles (Loading Overlay Only) -->
+    <style>
+        #loading-overlay { position: fixed; inset: 0; background-color: #000; color: #0ff; display: flex; flex-direction: column; justify-content: center; align-items: center; font-size: 1.5em; z-index: 10000; transition: opacity 0.6s ease-out 0.2s; font-family: 'Orbitron', sans-serif; text-shadow: 0 0 6px #0ff; }
+        #loading-overlay.hidden { opacity: 0; pointer-events: none; }
+        /* Spinner defined in animations.css */
+    </style>
+</head>
+<body class> <!-- Theme/State classes added by JS -->
+
+    <div id="loading-overlay" role="status" aria-live="polite">Loading The System...</div>
+
+    <header id="hud" role="status" aria-live="polite">
+        <div id="hud-left">
+            <span id="hud-level" aria-label="Current Level">Lv. 1</span>
+            <div id="hud-exp-bar-container" title="EXP" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+                <div id="hud-exp-bar"></div>
+            </div>
+        </div>
+        <div id="active-blessing-display" style="display: none;" aria-live="polite">
+             <!-- Blessing Populated by JS -->
+        </div>
+        <div id="hud-right">
+            <span id="hud-passive-stats" aria-label="Passive Stats">Int: 10 | Wil: 10</span>
+        </div>
+    </header>
+
+    <main id="main-content">
+        <div id="cover-area" role="banner">
+            <img src="images/soul-leveling-cover.png" alt="Soul Leveling - The System Cover Art">
+        </div>
+
+        <section id="soul-window" class="panel glowing-border" role="region" aria-labelledby="soul-window-heading">
+            <h2 id="soul-window-heading" class="glowing-text">Inner Self Panel</h2>
+            <div class="soul-window-grid">
+                <div> <!-- Column 1: Basic Info -->
+                    <p><strong>Name:</strong> <span id="user-name">[Initializing...]</span></p>
+                    <p title=""><strong>Title:</strong> <span id="user-title"></span></p>
+                    <p><strong>System Name:</strong> <span id="system-name">[System]</span></p>
+                    <p><strong>Level:</strong> <span id="consciousness-level">1</span></p>
+                    <p><strong>Class:</strong> <span id="spiritual-class">Seeker (Rank C) | Soul Traveler</span></p>
+                    <p><strong>HP:</strong> <span id="hp-value">100</span> / <span id="hp-max">100</span></p>
+                    <p><strong>MP:</strong> <span id="mp-value">50</span> / <span id="mp-max">50</span></p>
+                    <p><strong>EXP:</strong> <span id="exp-value">0</span> / <span id="exp-next">100</span></p>
+                    <p><strong>Stat Points:</strong> <span id="stat-points-display">0</span></p>
+                </div>
+                <div id="stats-allocation"> <!-- Column 2: Stats & Allocation -->
+                    <h3 class="glowing-text">Core Stats</h3>
+                    {/* JS will find these by ID and add buttons if points > 0 */}
+                    <p id="stat-p-awakening" title="Base: 10">Awakening: <span id="stat-awakening">10</span></p>
+                    <p id="stat-p-intuition" title="Base: 10">Intuition: <span id="stat-intuition">10</span></p>
+                    <p id="stat-p-energy" title="Base: 10">Energy: <span id="stat-energy">10</span></p>
+                    <p id="stat-p-willpower" title="Base: 10">Willpower: <span id="stat-willpower">10</span></p>
+                    <p id="stat-p-resonance" title="Base: 10">Resonance: <span id="stat-resonance">10</span></p>
+                </div>
+            </div>
+            <div id="stat-chart-container"><h3 class="glowing-text">Soul Stat Chart</h3><canvas id="soul-stat-chart"></canvas></div>
+        </section>
+
+        <section id="system-command" class="panel" style="display: none;">
+             <input type="text" id="system-command-input" placeholder="Enter command (e.g., status, quests)..." aria-label="System Command Input">
+             <button id="submit-command-button">Enter</button>
+        </section>
+
+        <section id="equipment-section" class="panel" role="region" aria-labelledby="equipment-heading">
+             <h2 id="equipment-heading" class="glowing-text">Equipment</h2>
+             <div id="equipment-display">
+                 <p class="equipment-empty-message">No items equipped.</p>
+             </div>
+        </section>
+
+         <section id="skills-section" class="panel" role="region" aria-labelledby="skills-heading">
+             <h2 id="skills-heading" class="glowing-text">Skills</h2>
+             <div id="skills-display">
+                  <p class="skills-empty-message">No skills learned.</p>
+             </div>
+        </section>
+
+        <section id="quest-log" class="panel" role="region" aria-labelledby="quest-log-heading">
+             <h2 id="quest-log-heading" class="glowing-text">Quest Log</h2>
+             <div id="quests-active"><h3>Active Quests</h3><ul id="active-quest-list"><li>Loading quests...</li></ul></div>
+             <div id="quests-daily" style="margin-top: 15px;"><h3>Daily Rituals</h3><ul id="daily-quest-list"><li>Loading...</li></ul></div>
+             <div id="quests-synchronicity" style="margin-top: 15px;"><h3>Synchronicity Log</h3><ul id="synchronicity-list"><li>No synchronicities noted.</li></ul></div>
+        </section>
+
+        <section id="soul-journal" class="panel" role="region" aria-labelledby="soul-journal-heading">
+             <h2 id="soul-journal-heading" class="glowing-text">Soul Journal</h2>
+             <div id="journal-prompt-area"><p id="journal-prompt">System Prompt: <span id="journal-system-prompt">Awaiting insight...</span></p><button id="journal-action-button" style="display: none;">Engage</button></div>
+             <textarea id="journal-input" rows="4" placeholder="Record your reflections here..."></textarea>
+             <button id="save-journal-entry">Save Entry</button>
+             <div id="journal-entries-display"><h3>Past Entries (Echo Archive)</h3><ul id="journal-entries-list"><li>Your chronicle awaits its first entry.</li></ul></div>
+        </section>
+
+        <section id="spiritual-timeline" class="panel" role="region" aria-labelledby="spiritual-timeline-heading">
+            <h2 id="spiritual-timeline-heading" class="glowing-text">Spiritual Timeline</h2>
+            <div id="timeline-map"><p>Your journey begins now...</p></div>
+        </section>
+
+        <section id="shadow-companions" class="panel" role="region" aria-labelledby="companion-section-title">
+             <h2 id="companion-section-title" class="glowing-text">Inner Guides / Shadows</h2>
+            <ul id="companion-list"><li>The space beside you is empty.</li></ul>
+            <button id="summon-companion-button">Attempt Summon (10 Frag)</button>
+        </section>
+
+        <section id="inventory-section" class="panel" role="region" aria-labelledby="inventory-heading">
+            <h2 id="inventory-heading" class="glowing-text">Inventory</h2>
+            <div id="inventory-display"><p class="inventory-empty-message">Empty.</p></div>
+        </section>
+
+        <section id="spiritual-shop" class="panel" style="display: none;" role="region" aria-labelledby="spiritual-shop-heading">
+             <h2 id="spiritual-shop-heading" class="glowing-text">Akashic Exchange</h2>
+             <p>Currency: <span id="karma-display">Karma: 0</span> | <span id="fragments-display">Fragments: 0</span> | <span id="tokens-display">Tokens: 0</span></p>
+             <div id="shop-items"><h3>Available Items</h3></div>
+        </section>
+
+        <section id="karma-mirror" class="panel" role="region" aria-labelledby="karma-mirror-heading">
+             <h2 id="karma-mirror-heading" class="glowing-text">Karma Mirror</h2>
+             <button id="activate-karma-mirror">Gaze into the Mirror</button>
+             <div id="mirror-reflection" style="display: none;"><p id="mirror-output">The mirror is still...</p></div>
+        </section>
+
+        <section id="monarch-domain-section" class="panel" style="text-align: center;">
+             <button id="monarch-domain-button" style="display: none;" disabled>Activate Monarch's Domain</button>
+             <p id="monarch-domain-status" style="display: none;"></p>
+        </section>
+
+        <nav id="main-actions" class="panel" role="navigation">
+             <button id="open-settings-button">System Settings</button>
+             <button id="open-shop-button">Visit Shop</button>
+             <button id="toggle-command-button" title="Toggle Command Input">CMD</button>
+         </nav>
+
+        <div id="notification-area" role="alert" aria-live="assertive"></div>
+
+    </main> <!-- End Main -->
+
+    <div id="modal-container" role="dialog" aria-modal="true" aria-labelledby="modal-title" style="display: none;">
+        <div id="modal-content" class="glowing-border">
+             <button id="modal-close-button" aria-label="Close Modal">×</button>
+            <h3 id="modal-title" class="glowing-text">System Message</h3>
+            <div id="modal-body"><p class="typing-effect" id="modal-message-text"></p></div>
+            <div id="modal-actions"><button id="modal-confirm-button" class="modal-close">Acknowledge</button></div>
+            <!-- Settings Panel -->
+            <div id="settings-panel-content" style="display: none;" role="region" aria-label="Settings Panel">
+                 <h3 class="glowing-text">Divine Settings</h3>
+                 <div class="settings-section"><h4>General</h4><label><input type="checkbox" id="toggle-animated-text" checked> Enable Animated Text</label><label><input type="checkbox" id="toggle-night-mode"> Enable Dreamwalking Realm</label><label><input type="checkbox" id="toggle-system-prompts" checked> Enable Background Prompts</label></div>
+                 <div class="settings-section"><h4>Audio</h4><label><input type="checkbox" id="toggle-music" checked> Enable Background Music</label><label><input type="checkbox" id="toggle-sfx" checked> Enable Sound Effects</label></div>
+                 <div class="settings-section"><h4>Theme</h4><label for="theme-selector">Aura Skin:</label><select id="theme-selector"><option value="default">Default (Ethereal Blue)</option></select></div>
+                 <div class="settings-section"><h4>Data Management</h4><button id="export-button">Export Profile</button><label for="import-file" id="import-button-wrapper" class="button-like-label">Import Journey<input type="file" id="import-file" accept=".json" style="display: none;"></label><br><button id="reset-button">Reset All Progress</button></div>
+                 <div class="settings-section version-info"><p>Soul Leveling 'The System' - Version: <span id="app-version">N/A</span></p></div>
+                 <div class="settings-section dev-toggle"><button id="toggle-dev-mode-button">Enable Dev Mode</button></div>
+            </div>
+            <!-- Dev Mode Panel -->
+             <div id="dev-mode-panel-content" style="display: none;" role="region" aria-label="Developer Mode Panel">
+                 <h3 class="glowing-text">Divine Developer Mode</h3><p>Warning: Use with caution.</p>
+                 <div class="dev-grid">
+                     <div><label>Level: <input type="number" id="dev-level" min="1"></label> <button id="dev-set-level">Set</button></div>
+                     <div><label>Add EXP: <input type="number" id="dev-exp" value="100"></label> <button id="dev-add-exp">Add</button></div>
+                     <div><label>Class: <input type="text" id="dev-class" placeholder="Rank/Name"></label> <button id="dev-set-class">Set</button></div>
+                     <div><label>Add Stat Pts: <input type="number" id="dev-stat-points" value="5"></label> <button id="dev-add-stat-points">Add</button></div>
+                     <div><label>Alignment: <input type="number" id="dev-alignment" value="0" min="-100" max="100"></label> <button id="dev-set-alignment">Set</button></div>
+                     <div><label>Add Item ID: <input type="text" id="dev-item-id" placeholder="item_id"></label> <button id="dev-add-item">Add</button></div>
+                     <div><label>Add Skill ID: <input type="text" id="dev-skill-id" placeholder="skill_id"></label> <button id="dev-add-skill">Add</button></div>
+                 </div>
+                 <hr>
+                 <button id="dev-trigger-gate">Trigger Gate</button>
+                 <button id="dev-trigger-red-gate" title="Force next triggered gate to be Red">Trigger Red Gate</button>
+                 <button id="dev-trigger-sync">Trigger Divine Sync</button>
+                 <button id="dev-activate-domain">Activate Domain</button>
+                 <button id="dev-reset-domain">Reset Domain CD</button>
+                 <button id="dev-reset-skills">Reset Skill CDs</button>
+             </div>
+        </div>
+    </div>
+
+    <!-- Audio Elements (All links filled) -->
+    <audio id="bgm-main" loop src="https://cdn.pixabay.com/audio/2023/01/01/audio_81752aef1a.mp3"></audio>
+    <audio id="bgm-gate" loop src="https://cdn.pixabay.com/audio/2022/11/17/audio_1e14a7a193.mp3"></audio>
+    <audio id="bgm-ascension" src="https://cdn.pixabay.com/audio/2022/02/07/audio_f5147df010.mp3"></audio>
+    <audio id="bgm-dream" loop src="https://cdn.pixabay.com/audio/2022/11/19/audio_10e1f6e92f.mp3"></audio>
+    <audio id="bgm-red-gate" loop src="https://cdn.pixabay.com/audio/2023/05/29/audio_1079a1a58f.mp3"></audio>
+    <audio id="bgm-monarch-domain" loop src="https://cdn.pixabay.com/audio/2023/09/24/audio_917607b458.mp3"></audio>
+    <audio id="bgm-awakening-trial" loop src="https://cdn.pixabay.com/audio/2022/08/03/audio_541d99731a.mp3"></audio>
+    <audio id="sfx-click" src="https://cdn.pixabay.com/audio/2022/03/15/audio_bd7947155c.mp3"></audio>
+    <audio id="sfx-levelup" src="https://cdn.pixabay.com/audio/2022/10/28/audio_97597d7499.mp3"></audio>
+    <audio id="sfx-levelup-whoosh" src="https://cdn.pixabay.com/audio/2022/03/10/audio_16516a6f5c.mp3"></audio>
+    <audio id="sfx-quest-complete" src="https://cdn.pixabay.com/audio/2022/06/07/audio_52cc098ef2.mp3"></audio>
+    <audio id="sfx-gate-open" src="https://cdn.pixabay.com/audio/2022/10/18/audio_916f4f415c.mp3"></audio>
+    <audio id="sfx-gate-clear" src="https://cdn.pixabay.com/audio/2021/08/04/audio_5651279fb7.mp3"></audio>
+    <audio id="sfx-prompt" src="https://cdn.pixabay.com/audio/2022/11/07/audio_a6a04c6f5d.mp3"></audio>
+    <audio id="sfx-error" src="https://cdn.pixabay.com/audio/2022/10/14/audio_561f6fce35.mp3"></audio>
+    <audio id="sfx-ascend" src="https://cdn.pixabay.com/audio/2022/08/18/audio_4666001779.mp3"></audio>
+    <audio id="sfx-divine-sync" src="https://cdn.pixabay.com/audio/2022/01/18/audio_75f4678f44.mp3"></audio>
+    <audio id="sfx-summon" src="https://cdn.pixabay.com/audio/2023/04/17/audio_715655d77a.mp3"></audio>
+    <audio id="sfx-expGain" src="https://cdn.pixabay.com/audio/2022/11/21/audio_87df196b7f.mp3"></audio>
+    <audio id="sfx-currencyGain" src="https://cdn.pixabay.com/audio/2022/03/10/audio_e4e09a80d6.mp3"></audio>
+    <audio id="sfx-transform" src="https://cdn.pixabay.com/audio/2023/04/06/audio_41944f711e.mp3"></audio>
+    <audio id="sfx-journalSave" src="https://cdn.pixabay.com/audio/2022/10/19/audio_63e01a0a74.mp3"></audio>
+    <audio id="sfx-red-gate-alert" src="https://cdn.pixabay.com/audio/2022/01/18/audio_8db1065393.mp3"></audio>
+    <audio id="sfx-typing" src="https://cdn.pixabay.com/audio/2022/03/15/audio_bd7947155c.mp3"></audio>
+    <audio id="sfx-success" src="https://cdn.pixabay.com/audio/2022/11/17/audio_7066b4a27d.mp3"></audio>
+    <audio id="sfx-theme-change" src="https://cdn.pixabay.com/audio/2022/03/23/audio_8a2d765d99.mp3"></audio>
+    <audio id="sfx-mirror-activate" src="https://cdn.pixabay.com/audio/2023/04/05/audio_80d878304a.mp3"></audio>
+    <audio id="sfx-stat-allocate" src="https://cdn.pixabay.com/audio/2022/03/10/audio_524a035a45.mp3"></audio>
+    <audio id="sfx-item-use" src="https://cdn.pixabay.com/audio/2023/04/05/audio_86fbece99a.mp3"></audio>
+    <audio id="sfx-blessing-active" src="https://cdn.pixabay.com/audio/2022/01/18/audio_75f4678f44.mp3"></audio>
+    <audio id="sfx-domain-activate" src="https://cdn.pixabay.com/audio/2023/04/05/audio_6d8a10ce0b.mp3"></audio>
+    <audio id="sfx-command-enter" src="https://cdn.pixabay.com/audio/2022/03/15/audio_5152a4f85d.mp3"></audio>
+    <audio id="sfx-command-fail" src="https://cdn.pixabay.com/audio/2023/06/02/audio_3681a47b8a.mp3"></audio>
+
+    <!-- JavaScript Files (Correct Loading Order - CRITICAL) -->
+    <script src="js/constants.js"></script>        <!-- 1. Constants -->
+    <script src="js/items.js"></script>            <!-- 2. Item Definitions -->
+    <script src="js/skills.js"></script>           <!-- 3. Skill Definitions -->
+    <script src="js/utils.js"></script>            <!-- 4. Utility Functions -->
+    <script src="js/state.js"></script>            <!-- 5. Core Game State -->
+    <script src="js/effects.js"></script>          <!-- 6. Effect Calculations -->
+    <script src="js/notifications.js"></script>    <!-- 7. Notification Handler -->
+    <script src="js/audio.js"></script>            <!-- 8. Audio Handler -->
+    <script src="js/ui.js"></script>               <!-- 9. Core UI Updates -->
+    <script src="js/animations.js"></script>       <!-- 10. Animation Functions -->
+    <script src="js/ui_interactions.js"></script>  <!-- 11. Complex UI Click Logic -->
+    <script src="js/quests.js"></script>           <!-- 12. Quest Logic -->
+    <script src="js/gates.js"></script>            <!-- 13. Gate Logic -->
+    <script src="js/shop.js"></script>             <!-- 14. Shop Logic -->
+    <script src="js/journal.js"></script>          <!-- 15. Journal Logic -->
+    <script src="js/timeline.js"></script>         <!-- 16. Timeline Logic -->
+    <script src="js/companions.js"></script>       <!-- 17. Companion Logic -->
+    <script src="js/combatSimulation.js"></script>  <!-- 18. Combat Placeholder -->
+    <script src="js/ai_system.js"></script>        <!-- 19. AI Messages -->
+    <script src="js/settings.js"></script>         <!-- 20. Settings Logic -->
+    <script src="js/saveLoad.js"></script>         <!-- 21. Save/Load Logic -->
+    <script src="js/devMode.js"></script>          <!-- 22. Developer Tools -->
+    <script src="js/main.js"></script>             <!-- 23. Main Initialization & Listeners (Last) -->
+
+</body>
+</html>

@@ -1,0 +1,50 @@
+/* css/animations.css */
+/* Version: v1.1.1 - Keyframes and Animation Classes */
+
+/* --- Keyframe Definitions --- */
+@keyframes popup-enter { from { opacity: 0; transform: translateY(20px) scale(0.98); } to { opacity: 1; transform: translateY(0) scale(1); } }
+@keyframes aura-flicker { 0%, 100% { box-shadow: 0 0 var(--glow-intensity-medium) var(--primary-glow-color), inset 0 0 var(--glow-intensity-low) rgba(0, 200, 255, 0.5); opacity: 0.9; } 50% { box-shadow: 0 0 var(--glow-intensity-high) var(--primary-glow-color), inset 0 0 var(--glow-intensity-medium) rgba(0, 200, 255, 0.7); opacity: 1; } }
+@keyframes divine-text-appear { 0% { opacity: 0; letter-spacing: 4px; filter: blur(3px); transform: translateY(5px); } 70% { opacity: 0.8; letter-spacing: 1px; filter: blur(0.5px); transform: translateY(0); } 100% { opacity: 1; letter-spacing: normal; filter: blur(0); transform: translateY(0); } }
+@keyframes typing-blink { from, to { border-color: transparent; } 50% { border-color: var(--primary-glow-color); } }
+@keyframes stat-pulse { 0% { transform: scale(1); background-color: transparent; } 50% { transform: scale(1.03); background-color: rgba(0, 224, 144, 0.15); box-shadow: 0 0 5px rgba(0, 224, 144, 0.3); } 100% { transform: scale(1); background-color: transparent; } }
+@keyframes screen-flash-white { 0% { opacity: 0; } 50% { opacity: 0.6; } 100% { opacity: 0; } }
+@keyframes screen-flash-gold { 0% { opacity: 0; } 50% { opacity: 0.5; } 100% { opacity: 0; } }
+@keyframes timeline-node-appear { from { opacity: 0; transform: translateX(-20px); } to { opacity: 1; transform: translateX(0); } }
+@keyframes mirror-shimmer { from { transform: translateX(-10%) skewX(-5deg); opacity: 0.4; } to { transform: translateX(10%) skewX(5deg); opacity: 0.6; } }
+@keyframes mirror-reveal { 0% { opacity: 0; transform: scale(0.9); filter: blur(5px); } 100% { opacity: 1; transform: scale(1); filter: blur(0); } }
+@keyframes mirror-fade-out { from { opacity: 1; transform: scale(1); } to { opacity: 0; transform: scale(0.95); } }
+@keyframes red-gate-text-pulse { from { text-shadow: 0 0 7px var(--primary-glow-color); } to   { text-shadow: 0 0 15px var(--primary-glow-color), 0 0 5px #fff; } }
+@keyframes red-gate-pulse-intense { from { box-shadow: inset 0 0 70px 30px var(--red-gate-overlay-color), 0 0 10px var(--red-gate-secondary); opacity: 0.8; } to { box-shadow: inset 0 0 120px 50px var(--red-gate-overlay-color), 0 0 25px var(--red-gate-secondary); opacity: 1; } }
+@keyframes notification-fade-in-kf { from { opacity: 0; transform: translateY(15px) scale(0.95); } to { opacity: 1; transform: translateY(0) scale(1); } }
+@keyframes notification-fade-out-kf { from { opacity: 1; transform: translateY(0) scale(1); } to { opacity: 0; transform: translateY(-10px) scale(0.95); } }
+@keyframes domain-pulse { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+@keyframes domain-glow { 0%, 100% { box-shadow: inset 0 0 100px 40px rgba(173, 216, 230, 0.25); } 50% { box-shadow: inset 0 0 150px 60px rgba(255, 255, 255, 0.35); } }
+@keyframes loading-pulse { 0% { transform: scale(1); opacity: 0.8; box-shadow: 0 0 5px var(--primary-glow-color); } 50% { transform: scale(1.1); opacity: 1; box-shadow: 0 0 15px var(--primary-glow-color); } 100% { transform: scale(1); opacity: 0.8; box-shadow: 0 0 5px var(--primary-glow-color); } }
+
+/* --- Animation Classes & Applications --- */
+.modal-enter-active { animation: popup-enter 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards; }
+.aura-flicker-active, .panel.glowing-border { animation: aura-flicker 2.8s infinite ease-in-out; }
+.divine-text-animated { display: inline-block; animation: divine-text-appear 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards; opacity: 0; }
+.typing-effect::after { content: ''; display: inline-block; width: 1px; height: 1em; margin-left: 3px; border-right: 2px solid var(--primary-glow-color); animation: typing-blink 0.8s step-end infinite; vertical-align: text-bottom; }
+.typing-effect.completed::after { display: none; }
+#stats-allocation p.stat-increase-pulse { animation: stat-pulse 0.6s ease-out forwards; }
+#mirror-reflection.mirror-active { animation: mirror-reveal 0.5s ease-out forwards, mirror-fade-out 0.5s ease-in 9.5s forwards; }
+#mirror-reflection::before { animation: mirror-shimmer 15s infinite linear alternate; }
+/* Notification Animations */
+.system-notification.notification-fade-in { animation: notification-fade-in-kf 0.4s ease-out forwards; }
+.system-notification.notification-fade-out { animation: notification-fade-out-kf 0.5s ease-in forwards; }
+/* Loading Overlay Animation */
+#loading-overlay::after { content: ''; display: block; width: 25px; height: 25px; margin-top: 15px; border: 4px solid var(--primary-glow-color); border-top-color: transparent; /* Make it a spinner */ border-radius: 50%; animation: loading-spin 1s linear infinite; }
+@keyframes loading-spin { to { transform: rotate(360deg); } }
+/* Body State Animations */
+body.ascension-active::after { content: ''; position: fixed; inset: 0; background: radial-gradient(ellipse at center, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0) 70%); z-index: 9000; pointer-events: none; animation: screen-flash-white 1.5s ease-out forwards; }
+body.divine-sync-active::after { content: ''; position: fixed; inset: 0; background: radial-gradient(ellipse at center, rgba(255, 220, 100, 0.3) 0%, rgba(255, 220, 100, 0) 60%); z-index: 9000; pointer-events: none; animation: screen-flash-gold 2s infinite ease-in-out alternate; }
+body.divine-sync-active #hud { box-shadow: 0 0 15px var(--primary-glow-color); border-bottom-color: var(--primary-glow-color); }
+/* Red Gate Active State Styles in themes.css */
+/* Monarch Domain Animation */
+body.monarch-domain-active::after { content: ''; position: fixed; inset: -50px; z-index: 9500; pointer-events: none; background: linear-gradient(270deg, rgba(173, 216, 230, 0.15), rgba(70, 130, 180, 0.25), rgba(255, 255, 255, 0.15), rgba(70, 130, 180, 0.25), rgba(173, 216, 230, 0.15)); background-size: 400% 400%; animation: domain-pulse 15s ease infinite, domain-glow 3s infinite ease-in-out alternate; opacity: 0.85; filter: blur(6px); }
+/* Timeline Node Animation applied via JS */
+/* Skill Cooldown Visual */
+.cooldown-timer::before { content: ""; position: absolute; inset: 0; border-radius: inherit; background: conic-gradient(var(--disabled-color) calc(var(--cd-percent, 0) * 1%), transparent 0); mask: radial-gradient(farthest-side, transparent calc(100% - 4px), #000 0); z-index: 0; opacity: 0.6; pointer-events: none; transition: background 0.2s linear; }
+.cooldown-timer.active::before { opacity: 0.8; }
+.cooldown-timer button { position: relative; z-index: 1; }
