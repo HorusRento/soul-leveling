@@ -1,0 +1,45 @@
+{
+  "name": "soul-leveling",
+  "version": "1.1.1",
+  "description": "This Solo Leveling themed web app transforms personal growth into an RPG. Log quests, track spiritual stats (Intuition, Willpower), clear mental 'gates', gamify your journey, and level up your inner self via The System.",
+  "keywords": [
+    "javascript",
+    "pwa",
+    "web-app",
+    "gamification",
+    "self-improvement",
+    "skill-tree",
+    "html5-css3",
+    "personal-growth",
+    "inventory-system",
+    "awakening",
+    "anime-style",
+    "solo-leveling",
+    "journaling-app",
+    "leveling-system",
+    "the-system",
+    "hunter-system",
+    "rpg-ui",
+    "gate-simulation",
+    "shadow-monarch"
+  ],
+  "homepage": "https://github.com/HorusRento/soul-leveling",
+  "bugs": {
+    "url": "https://github.com/HorusRento/soul-leveling/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HorusRento/soul-leveling.git"
+  },
+  "license": "MIT",
+  "author": "Horus",
+  "type": "commonjs",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "express": "^5.1.0"
+  }
+}
