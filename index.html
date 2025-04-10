@@ -14,7 +14,6 @@
     <meta name="apple-mobile-web-app-title" content="TheSystem">
     <link rel="icon" href="images/icons/icon-192x192.png" type="image/png" sizes="192x192">
     <link rel="apple-touch-icon" href="images/icons/icon-192x192.png">
-    <!-- Add other icon sizes links here if created (e.g., 512x512) -->
     <!-- <link rel="icon" href="images/icons/icon-512x512.png" type="image/png" sizes="512x512"> -->
 
 
@@ -34,6 +33,7 @@
     </style>
 </head>
 <body class> <!-- Theme/State classes added by JS -->
+<!-- Soul Leveling 'The System' v1.1.1 -->
 
     <div id="loading-overlay" role="status" aria-live="polite">Loading The System...</div>
 
@@ -73,7 +73,7 @@
                 </div>
                 <div id="stats-allocation"> <!-- Column 2: Stats & Allocation -->
                     <h3 class="glowing-text">Core Stats</h3>
-                    {/* JS will find these by ID and add buttons if points > 0 */}
+                    {/* Structure for each stat - JS finds these by ID and adds buttons if points > 0 */}
                     <p id="stat-p-awakening" title="Base: 10">Awakening: <span id="stat-awakening">10</span></p>
                     <p id="stat-p-intuition" title="Base: 10">Intuition: <span id="stat-intuition">10</span></p>
                     <p id="stat-p-energy" title="Base: 10">Energy: <span id="stat-energy">10</span></p>
@@ -92,14 +92,14 @@
         <section id="equipment-section" class="panel" role="region" aria-labelledby="equipment-heading">
              <h2 id="equipment-heading" class="glowing-text">Equipment</h2>
              <div id="equipment-display">
-                 <p class="equipment-empty-message">No items equipped.</p>
+                 <p class="equipment-empty-message">No items equipped.</p> <!-- Placeholder -->
              </div>
         </section>
 
          <section id="skills-section" class="panel" role="region" aria-labelledby="skills-heading">
              <h2 id="skills-heading" class="glowing-text">Skills</h2>
              <div id="skills-display">
-                  <p class="skills-empty-message">No skills learned.</p>
+                  <p class="skills-empty-message">No skills learned.</p> <!-- Placeholder -->
              </div>
         </section>
 
@@ -131,7 +131,7 @@
 
         <section id="inventory-section" class="panel" role="region" aria-labelledby="inventory-heading">
             <h2 id="inventory-heading" class="glowing-text">Inventory</h2>
-            <div id="inventory-display"><p class="inventory-empty-message">Empty.</p></div>
+            <div id="inventory-display"><p class="inventory-empty-message">Empty.</p></div> <!-- Placeholder -->
         </section>
 
         <section id="spiritual-shop" class="panel" style="display: none;" role="region" aria-labelledby="spiritual-shop-heading">
@@ -236,29 +236,29 @@
     <audio id="sfx-command-fail" src="https://cdn.pixabay.com/audio/2023/06/02/audio_3681a47b8a.mp3"></audio>
 
     <!-- JavaScript Files (Correct Loading Order - CRITICAL) -->
-    <script src="js/constants.js"></script>        <!-- 1. Constants -->
-    <script src="js/items.js"></script>            <!-- 2. Item Definitions -->
-    <script src="js/skills.js"></script>           <!-- 3. Skill Definitions -->
-    <script src="js/utils.js"></script>            <!-- 4. Utility Functions -->
-    <script src="js/state.js"></script>            <!-- 5. Core Game State -->
-    <script src="js/effects.js"></script>          <!-- 6. Effect Calculations -->
-    <script src="js/notifications.js"></script>    <!-- 7. Notification Handler -->
-    <script src="js/audio.js"></script>            <!-- 8. Audio Handler -->
-    <script src="js/ui.js"></script>               <!-- 9. Core UI Updates -->
-    <script src="js/animations.js"></script>       <!-- 10. Animation Functions -->
-    <script src="js/ui_interactions.js"></script>  <!-- 11. Complex UI Click Logic -->
-    <script src="js/quests.js"></script>           <!-- 12. Quest Logic -->
-    <script src="js/gates.js"></script>            <!-- 13. Gate Logic -->
-    <script src="js/shop.js"></script>             <!-- 14. Shop Logic -->
-    <script src="js/journal.js"></script>          <!-- 15. Journal Logic -->
-    <script src="js/timeline.js"></script>         <!-- 16. Timeline Logic -->
-    <script src="js/companions.js"></script>       <!-- 17. Companion Logic -->
-    <script src="js/combatSimulation.js"></script>  <!-- 18. Combat Placeholder -->
-    <script src="js/ai_system.js"></script>        <!-- 19. AI Messages -->
-    <script src="js/settings.js"></script>         <!-- 20. Settings Logic -->
-    <script src="js/saveLoad.js"></script>         <!-- 21. Save/Load Logic -->
-    <script src="js/devMode.js"></script>          <!-- 22. Developer Tools -->
-    <script src="js/main.js"></script>             <!-- 23. Main Initialization & Listeners (Last) -->
+    <script src="js/constants.js"></script>
+    <script src="js/items.js"></script>
+    <script src="js/skills.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/state.js"></script>
+    <script src="js/effects.js"></script>
+    <script src="js/notifications.js"></script>
+    <script src="js/audio.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/animations.js"></script>
+    <script src="js/ui_interactions.js"></script>
+    <script src="js/quests.js"></script>
+    <script src="js/gates.js"></script>
+    <script src="js/shop.js"></script>
+    <script src="js/journal.js"></script>
+    <script src="js/timeline.js"></script>
+    <script src="js/companions.js"></script>
+    <script src="js/combatSimulation.js"></script>
+    <script src="js/ai_system.js"></script>
+    <script src="js/settings.js"></script>
+    <script src="js/saveLoad.js"></script>
+    <script src="js/devMode.js"></script>
+    <script src="js/main.js"></script>
 
 </body>
 </html>

@@ -19,7 +19,7 @@
 @keyframes notification-fade-out-kf { from { opacity: 1; transform: translateY(0) scale(1); } to { opacity: 0; transform: translateY(-10px) scale(0.95); } }
 @keyframes domain-pulse { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
 @keyframes domain-glow { 0%, 100% { box-shadow: inset 0 0 100px 40px rgba(173, 216, 230, 0.25); } 50% { box-shadow: inset 0 0 150px 60px rgba(255, 255, 255, 0.35); } }
-@keyframes loading-pulse { 0% { transform: scale(1); opacity: 0.8; box-shadow: 0 0 5px var(--primary-glow-color); } 50% { transform: scale(1.1); opacity: 1; box-shadow: 0 0 15px var(--primary-glow-color); } 100% { transform: scale(1); opacity: 0.8; box-shadow: 0 0 5px var(--primary-glow-color); } }
+@keyframes loading-spin { to { transform: rotate(360deg); } }
 
 /* --- Animation Classes & Applications --- */
 .modal-enter-active { animation: popup-enter 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards; }
@@ -34,17 +34,13 @@
 .system-notification.notification-fade-in { animation: notification-fade-in-kf 0.4s ease-out forwards; }
 .system-notification.notification-fade-out { animation: notification-fade-out-kf 0.5s ease-in forwards; }
 /* Loading Overlay Animation */
-#loading-overlay::after { content: ''; display: block; width: 25px; height: 25px; margin-top: 15px; border: 4px solid var(--primary-glow-color); border-top-color: transparent; /* Make it a spinner */ border-radius: 50%; animation: loading-spin 1s linear infinite; }
-@keyframes loading-spin { to { transform: rotate(360deg); } }
+#loading-overlay::after { content: ''; display: block; width: 25px; height: 25px; margin-top: 15px; border: 4px solid var(--primary-glow-color); border-top-color: transparent; border-radius: 50%; animation: loading-spin 1s linear infinite; }
 /* Body State Animations */
 body.ascension-active::after { content: ''; position: fixed; inset: 0; background: radial-gradient(ellipse at center, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0) 70%); z-index: 9000; pointer-events: none; animation: screen-flash-white 1.5s ease-out forwards; }
 body.divine-sync-active::after { content: ''; position: fixed; inset: 0; background: radial-gradient(ellipse at center, rgba(255, 220, 100, 0.3) 0%, rgba(255, 220, 100, 0) 60%); z-index: 9000; pointer-events: none; animation: screen-flash-gold 2s infinite ease-in-out alternate; }
 body.divine-sync-active #hud { box-shadow: 0 0 15px var(--primary-glow-color); border-bottom-color: var(--primary-glow-color); }
-/* Red Gate Active State Styles in themes.css */
-/* Monarch Domain Animation */
-body.monarch-domain-active::after { content: ''; position: fixed; inset: -50px; z-index: 9500; pointer-events: none; background: linear-gradient(270deg, rgba(173, 216, 230, 0.15), rgba(70, 130, 180, 0.25), rgba(255, 255, 255, 0.15), rgba(70, 130, 180, 0.25), rgba(173, 216, 230, 0.15)); background-size: 400% 400%; animation: domain-pulse 15s ease infinite, domain-glow 3s infinite ease-in-out alternate; opacity: 0.85; filter: blur(6px); }
-/* Timeline Node Animation applied via JS */
+/* Red Gate & Monarch Domain styles defined in themes.css */
 /* Skill Cooldown Visual */
-.cooldown-timer::before { content: ""; position: absolute; inset: 0; border-radius: inherit; background: conic-gradient(var(--disabled-color) calc(var(--cd-percent, 0) * 1%), transparent 0); mask: radial-gradient(farthest-side, transparent calc(100% - 4px), #000 0); z-index: 0; opacity: 0.6; pointer-events: none; transition: background 0.2s linear; }
+.cooldown-timer::before { content: ""; position: absolute; inset: 0; border-radius: inherit; background: conic-gradient(var(--disabled-color) calc(var(--cd-percent, 0) * 1%), transparent 0); mask: radial-gradient(farthest-side, transparent calc(100% - 4px), #000 0); z-index: 0; opacity: 0.6; pointer-events: none; transition: none; /* Instant update via JS */ }
 .cooldown-timer.active::before { opacity: 0.8; }
 .cooldown-timer button { position: relative; z-index: 1; }

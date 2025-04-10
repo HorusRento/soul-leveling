@@ -5,41 +5,47 @@
 
 /* --- Celestial Radiance Theme --- */
 body.theme-celestial { --bg-color: #f0f4f8; --panel-bg-color: rgba(255, 255, 255, 0.88); --panel-border-color: rgba(255, 215, 0, 0.6); --primary-glow-color: #FFD700; --secondary-glow-color: #FFA500; --text-color: #333; --text-secondary-color: #555; --text-highlight-color: #DAA520; --accent-color: #FFD700; --success-color: #008000; --error-color: #B22222; --warning-color: #cc8400; } body.theme-celestial::before { background-color: rgba(255, 255, 255, 0.1); background-image: none; }
-body.theme-celestial .notification-success { background-color: var(--success-color); color: #fff; } body.theme-celestial .notification-warning { background-color: var(--warning-color); color: #fff; } body.theme-celestial .notification-error { background-color: var(--error-color); color: #fff; } body.theme-celestial .notification-achievement { background: linear-gradient(45deg, #fff, var(--primary-glow-color)); color: #333; border-color: var(--secondary-glow-color);}
+/* Celestial Notification Colors */
+body.theme-celestial .notification-info { background-color: var(--secondary-glow-color); color: #000;} body.theme-celestial .notification-success { background-color: var(--success-color); color: #fff; } body.theme-celestial .notification-warning { background-color: var(--warning-color); color: #fff; } body.theme-celestial .notification-error { background-color: var(--error-color); color: #fff; } body.theme-celestial .notification-achievement { background: linear-gradient(45deg, #fff, var(--primary-glow-color)); color: #333; border-color: var(--secondary-glow-color);}
 
 /* --- Shadow Sovereign Theme --- */
 body.theme-shadow { --bg-color: #050208; --panel-bg-color: rgba(20, 5, 30, 0.92); --panel-border-color: rgba(100, 0, 150, 0.7); --primary-glow-color: #9400D3; --secondary-glow-color: #4B0082; --text-color: #d8c8e8; --text-secondary-color: #a898b8; --text-highlight-color: #DA70D6; --accent-color: #BA55D3; --success-color: #90EE90; --error-color: #FF6347; --warning-color: #FFDA63;} body.theme-shadow::before { background-color: rgba(5, 2, 8, 0.9); }
-body.theme-shadow .notification-success { background-color: var(--success-color); color: #000; } body.theme-shadow .notification-warning { background-color: var(--warning-color); color: #000; } body.theme-shadow .notification-error { background-color: var(--error-color); color: #fff; } body.theme-shadow .notification-achievement { background: linear-gradient(45deg, var(--primary-glow-color), var(--accent-color)); color: #fff; border-color: var(--secondary-glow-color);}
+/* Shadow Notification Colors */
+body.theme-shadow .notification-info { background-color: var(--secondary-glow-color); color: var(--text-color);} body.theme-shadow .notification-success { background-color: var(--success-color); color: #000; } body.theme-shadow .notification-warning { background-color: var(--warning-color); color: #000; } body.theme-shadow .notification-error { background-color: var(--error-color); color: #fff; } body.theme-shadow .notification-achievement { background: linear-gradient(45deg, var(--primary-glow-color), var(--accent-color)); color: #fff; border-color: var(--secondary-glow-color);}
 
 /* --- Monarch of Light Theme --- */
-body.theme-monarch { --bg-color: #080c14; --panel-bg-color: rgba(15, 25, 45, 0.92); --panel-border-color: rgba(173, 216, 230, 0.7); --primary-glow-color: #ADD8E6; --secondary-glow-color: #87CEEB; --text-color: #e8f4ff; --text-secondary-color: #b0c4de; --text-highlight-color: #FFFFFF; --accent-color: #ADD8E6; --success-color: #98FB98; --error-color: #FFA07A; --warning-color: #FFEC8B;} body.theme-monarch::before { background-color: rgba(8, 12, 20, 0.85); }
-body.theme-monarch .notification-success { background-color: var(--success-color); color: #000; } body.theme-monarch .notification-warning { background-color: var(--warning-color); color: #000; } body.theme-monarch .notification-error { background-color: var(--error-color); color: #000; } body.theme-monarch .notification-achievement { background: linear-gradient(45deg, #fff, var(--primary-glow-color)); color: #000; border-color: var(--secondary-glow-color);}
+body.theme-monarch { --bg-color: #080c14; --panel-bg-color: rgba(15, 25, 45, 0.92); --panel-border-color: rgba(173, 216, 230, 0.7); --primary-glow-color: #ADD8E6; --secondary-glow-color: #87CEEB; --text-color: #e8f4ff; --text-secondary-color: #b0c4de; --text-highlight-color: #FFFFFF; --accent-color: #ADD8E6; --success-color: #98FB98; --error-color: #FFA07A; --warning-color: #FFEC8B;} body.theme-monarch::before { background-color: rgba(8, 12, 20, 0.88); }
+/* Monarch Notification Colors */
+body.theme-monarch .notification-info { background-color: var(--secondary-glow-color); color: #000;} body.theme-monarch .notification-success { background-color: var(--success-color); color: #000; } body.theme-monarch .notification-warning { background-color: var(--warning-color); color: #000; } body.theme-monarch .notification-error { background-color: var(--error-color); color: #000; } body.theme-monarch .notification-achievement { background: linear-gradient(45deg, #fff, var(--primary-glow-color)); color: #000; border-color: var(--secondary-glow-color);}
 
 /* --- Night Mode (Dreamwalking Realm) --- */
-body.night-mode-active { --bg-color: #000010; --panel-bg-color: rgba(5, 0, 15, 0.88); --panel-border-color: rgba(75, 0, 130, 0.6); --primary-glow-color: #483D8B; --secondary-glow-color: #8A2BE2; --text-color: #c8b8e0; --text-secondary-color: #9a88b8; --text-highlight-color: #9370DB; --accent-color: #9370DB; --success-color: #90EE90; --error-color: #FF6347; --warning-color: #FFDA63; background-image: url('../images/background-dream.png'); } body.night-mode-active::before { background-color: rgba(0, 0, 16, 0.9); }
-body.night-mode-active .notification-success { background-color: var(--success-color); color: #000; } body.night-mode-active .notification-warning { background-color: var(--warning-color); color: #000; } body.night-mode-active .notification-error { background-color: var(--error-color); color: #fff; } body.night-mode-active .notification-achievement { background: linear-gradient(45deg, var(--accent-color), var(--primary-glow-color)); color: #fff; border-color: var(--secondary-glow-color);}
+body.night-mode-active { --bg-color: #000010; --panel-bg-color: rgba(5, 0, 15, 0.88); --panel-border-color: rgba(75, 0, 130, 0.6); --primary-glow-color: #483D8B; --secondary-glow-color: #8A2BE2; --text-color: #c8b8e0; --text-secondary-color: #9a88b8; --text-highlight-color: #9370DB; --accent-color: #9370DB; --success-color: #90EE90; --error-color: #FF6347; --warning-color: #FFDA63; background-image: url('../images/background-dream.png'); }
+ body.night-mode-active::before { background-color: rgba(0, 0, 16, 0.9); }
+ /* Night Mode Notifications */
+ body.night-mode-active .notification-info { background-color: var(--secondary-glow-color); color: var(--text-color);} body.night-mode-active .notification-success { background-color: var(--success-color); color: #000; } body.night-mode-active .notification-warning { background-color: var(--warning-color); color: #000; } body.night-mode-active .notification-error { background-color: var(--error-color); color: #fff; } body.night-mode-active .notification-achievement { background: linear-gradient(45deg, var(--accent-color), var(--primary-glow-color)); color: #fff; border-color: var(--secondary-glow-color);}
 
-/* --- Rarity Colors (Used across themes) --- */
-.rarity-common { color: var(--text-secondary-color); opacity: 0.8; }
-.rarity-uncommon { color: #66bb6a; font-weight: bold;}
-.rarity-rare { color: #42a5f5; font-weight: bold; text-shadow: 0 0 3px #42a5f5;}
-.rarity-epic { color: #ab47bc; font-weight: bold; text-shadow: 0 0 5px #ab47bc;}
-.rarity-legendary { color: #ffa726; font-weight: bold; text-shadow: 0 0 7px #ffa726;}
-/* Styles applied to specific elements (shop items, inventory, equipment, skills) in main.css */
+/* --- Rarity Colors (Applied via span classes) --- */
+.rarity-common { color: var(--text-secondary-color); opacity: 0.8; font-weight: normal; text-shadow: none;}
+.rarity-uncommon { color: #66bb6a; font-weight: bold; text-shadow: none;} /* Green */
+.rarity-rare { color: #42a5f5; font-weight: bold; text-shadow: 0 0 4px #42a5f5;} /* Blue */
+.rarity-epic { color: #ab47bc; font-weight: bold; text-shadow: 0 0 6px #ab47bc;} /* Purple */
+.rarity-legendary { color: #ffa726; font-weight: bold; text-shadow: 0 0 8px #ffa726;} /* Orange/Gold */
+/* Styles applied to specific elements (shop items, inventory, etc.) in main.css */
 
-/* --- Red Gate Active State Overrides --- */
-body.red-gate-active { --red-gate-primary: #ff1111; --red-gate-secondary: #cc0000; --red-gate-overlay-color: rgba(180, 0, 0, 0.3); --red-gate-dark-bg: #1a0000; /* Darker red */ --bg-color: var(--red-gate-dark-bg); --primary-glow-color: var(--red-gate-primary); --secondary-glow-color: var(--red-gate-secondary); --panel-border-color: rgba(220, 0, 0, 0.8); --accent-color: var(--red-gate-primary); --text-highlight-color: var(--red-gate-primary); --error-color: #ff6666; --success-color: #99ff99; background-image: url('../images/background-red-gate.png'); /* Assumes exists */ }
+/* --- Enhanced Red Gate Active State Overrides --- */
+body.red-gate-active { --red-gate-primary: #ff1111; --red-gate-secondary: #cc0000; --red-gate-overlay-color: rgba(180, 0, 0, 0.3); --red-gate-dark-bg: #1a0000; --bg-color: var(--red-gate-dark-bg); --primary-glow-color: var(--red-gate-primary); --secondary-glow-color: var(--red-gate-secondary); --panel-border-color: rgba(220, 0, 0, 0.8); --accent-color: var(--red-gate-primary); --text-highlight-color: var(--red-gate-primary); --error-color: #ff6666; --success-color: #99ff99; background-image: url('../images/background-red-gate.png'); /* Assumes exists */ }
 body.red-gate-active::before { background-color: rgba(40, 0, 0, 0.94); animation: red-gate-pulse-intense 1.5s infinite ease-in-out alternate; transition: background-color 0.5s ease; }
-/* Button overrides */
-body.red-gate-active button:not(#reset-button):not([id^='confirm-']) { border-color: var(--accent-color); color: var(--accent-color); box-shadow: 0 0 var(--glow-intensity-medium) var(--accent-color); } body.red-gate-active button:not(#reset-button):not([id^='confirm-']):hover { background-color: var(--accent-color); color: var(--red-gate-dark-bg); box-shadow: 0 0 var(--glow-intensity-medium) var(--accent-color), 0 0 var(--glow-intensity-high) var(--accent-color); }
+body.red-gate-active button:not(#reset-button):not([id^='confirm-']) { border-color: var(--accent-color); color: var(--accent-color); box-shadow: 0 0 var(--glow-intensity-medium) var(--accent-color); }
+body.red-gate-active button:not(#reset-button):not([id^='confirm-']):hover { background-color: var(--accent-color); color: var(--red-gate-dark-bg); box-shadow: 0 0 var(--glow-intensity-medium) var(--accent-color), 0 0 var(--glow-intensity-high) var(--accent-color); }
 body.red-gate-active #hud-exp-bar { background: linear-gradient(90deg, var(--red-gate-secondary), var(--red-gate-primary)); }
 body.red-gate-active #modal-content { border-color: var(--primary-glow-color); box-shadow: 0 0 var(--glow-intensity-high) var(--primary-glow-color), 0 0 30px rgba(255, 17, 17, 0.4); }
-body.red-gate-active .panel.glowing-border { border-color: var(--primary-glow-color); /* Animation uses the var */ }
+body.red-gate-active .panel.glowing-border { border-color: var(--primary-glow-color); animation-duration: 1.5s; /* Faster pulse? */ }
 body.red-gate-active .glowing-text { color: var(--text-highlight-color); text-shadow: 0 0 var(--glow-intensity-medium) var(--primary-glow-color); }
 body.red-gate-active .rarity-legendary, body.red-gate-active .rarity-epic { font-weight: bold; animation: red-gate-text-pulse 1s infinite alternate; }
-/* Red gate notification overrides if needed */
-body.red-gate-active .notification-success { background-color: var(--success-color); color: #000; }
-body.red-gate-active .notification-error { background-color: var(--error-color); color: #fff; }
+/* Red gate notification overrides */
+body.red-gate-active .notification-info { background-color: var(--secondary-glow-color); color: var(--text-color); border: 1px solid var(--primary-glow-color);} body.red-gate-active .notification-success { background-color: var(--success-color); color: #000; } body.red-gate-active .notification-warning { background-color: var(--warning-color); color: #333; } body.red-gate-active .notification-error { background-color: var(--error-color); color: #fff; } body.red-gate-active .notification-achievement { background: linear-gradient(45deg, var(--primary-glow-color), var(--success-color)); color: #000; border-color: var(--secondary-glow-color);}
 
 /* Monarch Domain overrides (Animation in animations.css) */
-body.monarch-domain-active { /* Optional: Change base vars */ /* --panel-bg-color: rgba(20, 30, 55, 0.95); */ }
+body.monarch-domain-active { /* Optional: Enhance theme vars */ /* --panel-bg-color: rgba(20, 30, 55, 0.95); */ }
+body.monarch-domain-active #hud { box-shadow: 0 0 20px var(--accent-color), 0 0 10px #fff; border-bottom: 1px solid #fff; transition: box-shadow 0.5s ease, border-color 0.5s ease; }
+body.monarch-domain-active .panel { border-color: var(--accent-color); /* Highlight panels */ }
